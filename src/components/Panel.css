@@ -1,0 +1,12 @@
+.Panel {
+    box-sizing: border-box;
+    padding: 10px;
+}
+
+.Panel input {
+    box-sizing: border-box;
+    border: 1px solid #ddd;
+    padding: 10px;
+    width: 100%;
+    text-align: right;
+}
