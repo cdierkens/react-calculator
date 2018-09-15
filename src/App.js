@@ -5,6 +5,8 @@ import Column from './components/Column'
 import Button from './components/Button'
 import Panel from './components/Panel'
 
+import entry from './lib/entry'
+
 // - Add
 // - Subtract
 // - Multiply
@@ -16,26 +18,26 @@ import Panel from './components/Panel'
 
 class App extends Component {
   state = {
-    calculation: ""
+    entries: []
   }
 
   buttonClickHandler = (event) => {
     this.setState({
-      calculation:  `${this.state.calculation} ${event.target.innerHTML} `
+      entries: entry.applyEntry(this.state.entries, event.target.innerHTML)
     })
   }
 
   // TODO: User handler convention.
   clearCalculation = (event) => {
     this.setState({
-      calculation:  ""
+      entries:  []
     })
   }
 
   render() {
     return (
       <div className={styles.App}>
-        <Panel calculation={this.state.calculation}></Panel>
+        <Panel calculation={this.state.entries.join(' ')}></Panel>
         <Row>
           <Column></Column>
           <Column>

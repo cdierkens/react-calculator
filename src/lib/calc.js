@@ -24,4 +24,5 @@ export const sqrt = (n, g) => {
     return sqrt(n, ng);
 }
 
+
 export default { add, subtract, multiply, divide, percent, sqrt }
