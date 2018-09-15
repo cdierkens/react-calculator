@@ -21,16 +21,21 @@ class App extends Component {
     entries: []
   }
 
-  buttonClickHandler = (event) => {
+  entryClickHandler = (event) => {
     this.setState({
       entries: entry.applyEntry(this.state.entries, event.target.innerHTML)
     })
   }
 
-  // TODO: User handler convention.
-  clearCalculation = (event) => {
+  allClearHandler = (event) => {
     this.setState({
       entries:  []
+    })
+  }
+
+  clearEntryHandler = (event) => {
+    this.setState({
+      entries:  entry.clearEntry(this.state.entries)
     })
   }
 
@@ -41,69 +46,69 @@ class App extends Component {
         <Row>
           <Column></Column>
           <Column>
-            <Button click={this.buttonClickHandler}>CE</Button>
+            <Button click={this.clearEntryHandler}>CE</Button>
           </Column>
           <Column>
-            <Button click={this.clearCalculation}>AC</Button>
+            <Button click={this.allClearHandler}>AC</Button>
           </Column>
           <Column>
-            <Button click={this.buttonClickHandler}>%</Button>
-          </Column>
-        </Row>
-        <Row>
-          <Column>
-            <Button click={this.buttonClickHandler}>7</Button>
-          </Column>
-          <Column>
-            <Button click={this.buttonClickHandler}>8</Button>
-          </Column>
-          <Column>
-            <Button click={this.buttonClickHandler}>9</Button>
-          </Column>
-          <Column>
-            <Button click={this.buttonClickHandler}>÷</Button>
+            <Button click={this.entryClickHandler}>%</Button>
           </Column>
         </Row>
         <Row>
           <Column>
-            <Button click={this.buttonClickHandler}>4</Button>
+            <Button click={this.entryClickHandler}>7</Button>
           </Column>
           <Column>
-            <Button click={this.buttonClickHandler}>5</Button>
+            <Button click={this.entryClickHandler}>8</Button>
           </Column>
           <Column>
-            <Button click={this.buttonClickHandler}>6</Button>
+            <Button click={this.entryClickHandler}>9</Button>
           </Column>
           <Column>
-            <Button click={this.buttonClickHandler}>×</Button>
-          </Column>
-        </Row>
-        <Row>
-          <Column>
-            <Button click={this.buttonClickHandler}>1</Button>
-          </Column>
-          <Column>
-            <Button click={this.buttonClickHandler}>2</Button>
-          </Column>
-          <Column>
-            <Button click={this.buttonClickHandler}>3</Button>
-          </Column>
-          <Column>
-            <Button click={this.buttonClickHandler}>−</Button>
+            <Button click={this.entryClickHandler}>÷</Button>
           </Column>
         </Row>
         <Row>
           <Column>
-            <Button click={this.buttonClickHandler}>0</Button>
+            <Button click={this.entryClickHandler}>4</Button>
           </Column>
           <Column>
-            <Button click={this.buttonClickHandler}>.</Button>
+            <Button click={this.entryClickHandler}>5</Button>
           </Column>
           <Column>
-            <Button click={this.buttonClickHandler}>=</Button>
+            <Button click={this.entryClickHandler}>6</Button>
           </Column>
           <Column>
-            <Button click={this.buttonClickHandler}>+</Button>
+            <Button click={this.entryClickHandler}>×</Button>
+          </Column>
+        </Row>
+        <Row>
+          <Column>
+            <Button click={this.entryClickHandler}>1</Button>
+          </Column>
+          <Column>
+            <Button click={this.entryClickHandler}>2</Button>
+          </Column>
+          <Column>
+            <Button click={this.entryClickHandler}>3</Button>
+          </Column>
+          <Column>
+            <Button click={this.entryClickHandler}>−</Button>
+          </Column>
+        </Row>
+        <Row>
+          <Column>
+            <Button click={this.entryClickHandler}>0</Button>
+          </Column>
+          <Column>
+            <Button click={this.entryClickHandler}>.</Button>
+          </Column>
+          <Column>
+            <Button click={this.entryClickHandler}>=</Button>
+          </Column>
+          <Column>
+            <Button click={this.entryClickHandler}>+</Button>
           </Column>
         </Row>
       </div>
