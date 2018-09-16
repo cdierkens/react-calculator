@@ -18,7 +18,8 @@ import entry from './lib/entry'
 
 class App extends Component {
   state = {
-    entries: []
+    entries: [],
+    result: 0
   }
 
   entryClickHandler = (event) => {
@@ -29,20 +30,31 @@ class App extends Component {
 
   allClearHandler = (event) => {
     this.setState({
-      entries:  []
+      entries: [],
+      result: 0
     })
   }
 
   clearEntryHandler = (event) => {
-    this.setState({
-      entries:  entry.clearEntry(this.state.entries)
-    })
+    let entries = entry.clearEntry(this.state.entries)
+    if (entries.length === 0) {
+      this.setState({ entries, result : 0 })
+    } else {
+      this.setState({ entries })
+    }
+  }
+
+  calculateEntriesHandler = () => {
+    let result = entry.calculate(this.state.entries)
+    if (result !== void 0) {
+      this.setState({ result })
+    }
   }
 
   render() {
     return (
       <div className={styles.App}>
-        <Panel calculation={this.state.entries.join(' ')}></Panel>
+        <Panel calculation={this.state.entries.join(' ')} result={this.state.result}></Panel>
         <Row>
           <Column></Column>
           <Column>
@@ -66,7 +78,7 @@ class App extends Component {
             <Button click={this.entryClickHandler}>9</Button>
           </Column>
           <Column>
-            <Button click={this.entryClickHandler}>÷</Button>
+            <Button click={this.entryClickHandler}>/</Button>
           </Column>
         </Row>
         <Row>
@@ -80,7 +92,7 @@ class App extends Component {
             <Button click={this.entryClickHandler}>6</Button>
           </Column>
           <Column>
-            <Button click={this.entryClickHandler}>×</Button>
+            <Button click={this.entryClickHandler}>x</Button>
           </Column>
         </Row>
         <Row>
@@ -94,7 +106,7 @@ class App extends Component {
             <Button click={this.entryClickHandler}>3</Button>
           </Column>
           <Column>
-            <Button click={this.entryClickHandler}>−</Button>
+            <Button click={this.entryClickHandler}>-</Button>
           </Column>
         </Row>
         <Row>
@@ -105,7 +117,7 @@ class App extends Component {
             <Button click={this.entryClickHandler}>.</Button>
           </Column>
           <Column>
-            <Button click={this.entryClickHandler}>=</Button>
+            <Button click={this.calculateEntriesHandler}>=</Button>
           </Column>
           <Column>
             <Button click={this.entryClickHandler}>+</Button>

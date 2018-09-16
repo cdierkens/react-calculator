@@ -1,9 +1,19 @@
-const prefix = ['−']
+import calc from './calc';
+
+const prefix = ['-']
 const postfix = ['%']
-const operator = ['+', '−', '×', '÷']
+
+const operator = ['x', '/', '+', '-']
 const number = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
 const seperator = ['.']
-const singular = ['−', '%', '.']
+const singular = ['-', '%', '.']
+
+const fns = {
+    'x': calc.multiply,
+    '/': calc.divide,
+    '+': calc.add,
+    '-': calc.subtract
+}
 
 export const isPrefix = (entry) => prefix.indexOf(entry) > -1 
 export const isPostFix = (entry) => postfix.indexOf(entry) > -1 
@@ -121,4 +131,25 @@ const clearEntry = (entries) => {
     return copy
 }
 
-export default { isPrefix, isPostFix, isOperator, isNumber, isSingular, applyEntry, clearEntry }
+const calculate = (entries) => {
+    if (entries.length % 3 === 1) {
+        return;
+    }
+
+    let copy = [...entries];
+
+    operator.forEach(op => {
+        let i = copy.indexOf(op)
+        while (i !== -1) {
+            let a = parseFloat(copy[i - 1])
+            let b = parseFloat(copy[i + 1])
+            let result =  fns[op](a, b)
+            copy.splice(i - 1, 3, result)
+            i = copy.indexOf(op)
+        }
+    })
+
+    return copy[0];
+}
+
+export default { applyEntry, clearEntry, calculate }
