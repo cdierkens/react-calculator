@@ -124,4 +124,9 @@ describe('calculate', () => {
         expect(entry.calculate(['9', '*', '-3'])).toBe(-27)
         expect(entry.calculate(['9', '+', '-3', '*', '3', '/', '3', '+', '3.3'])).toBe(9.3)
     })
+
+    it('returns the result of calculation that contains percentages numbers', () => {
+        expect(entry.calculate(['100%'])).toBe(1)
+        expect(entry.calculate(['10%', '*', '900'])).toBe(90)
+    })
 });

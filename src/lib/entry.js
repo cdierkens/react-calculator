@@ -42,6 +42,10 @@ const endsWithPostfix = (entry) => {
     return isPrefix(entry.split('').pop())
 }
 
+const getValue = (char) => {
+    return typeof char === "number" ? char : parseFloat(char) * (char.indexOf('%') > -1 ? 0.01 : 1)
+}
+
 export const applyEntry = (entries, entry) => {
     if (entries.length === 0) {
         if(isNumber(entry) || isPrefix(entry)) {
@@ -132,8 +136,12 @@ export const clearEntry = (entries) => {
 }
 
 export const calculate = (entries) => {
-    if (entries.length % 3 === 1) {
+    if (entries.length % 2 === 0) {
         return;
+    }
+
+    if (entries.length === 1) {
+        return getValue(entries[0])
     }
 
     let copy = [...entries];
@@ -141,8 +149,8 @@ export const calculate = (entries) => {
     operator.forEach(op => {
         let i = copy.indexOf(op)
         while (i !== -1) {
-            let a = parseFloat(copy[i - 1])
-            let b = parseFloat(copy[i + 1])
+            let a = getValue(copy[i - 1])
+            let b = getValue(copy[i + 1])
             let result =  fns[op](a, b)
             copy.splice(i - 1, 3, result)
             i = copy.indexOf(op)
