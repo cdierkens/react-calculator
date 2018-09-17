@@ -51,9 +51,29 @@ class App extends Component {
     }
   }
 
+  keyUpHandler = (event) => {
+    if (event.which === 13 || (event.which === 187 && !event.shiftKey)) {
+      this.calculateEntriesHandler()
+    } else if (event.which === 8) {
+      this.clearEntryHandler()
+    } else {
+      const key = entry.getKey(event); 
+
+      this.setState({
+        entries: entry.applyEntry(this.state.entries, key)
+      })
+    }
+  }
+
+  appRef = React.createRef();
+
+  componentDidMount() {
+    this.appRef.current.focus()
+  }
+
   render() {
     return (
-      <div className={styles.App}>
+      <div className={styles.App} onKeyUp={this.keyUpHandler} tabIndex='0' ref={this.appRef}>
         <Panel calculation={this.state.entries.join(' ')} result={this.state.result}></Panel>
         <Row>
           <Column></Column>

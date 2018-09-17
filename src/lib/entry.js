@@ -15,12 +15,12 @@ const fns = {
     '-': calc.subtract
 }
 
-export const isPrefix = (entry) => prefix.indexOf(entry) > -1 
-export const isPostFix = (entry) => postfix.indexOf(entry) > -1 
-export const isOperator = (entry) => operator.indexOf(entry) > -1 
-export const isNumber = (entry) => number.indexOf(entry) > -1 
-export const isSeperator = (entry) => seperator.indexOf(entry) > -1 
-export const isSingular = (entry) => singular.indexOf(entry) > -1
+const isPrefix = (entry) => prefix.indexOf(entry) > -1 
+const isPostFix = (entry) => postfix.indexOf(entry) > -1 
+const isOperator = (entry) => operator.indexOf(entry) > -1 
+const isNumber = (entry) => number.indexOf(entry) > -1 
+const isSeperator = (entry) => seperator.indexOf(entry) > -1 
+const isSingular = (entry) => singular.indexOf(entry) > -1
 
 const append = (entries, value) => {
     const copy = [...entries]
@@ -113,7 +113,7 @@ export const applyEntry = (entries, entry) => {
     return entries
 }
 
-const clearEntry = (entries) => {
+export const clearEntry = (entries) => {
     if (entries.length === 0) {
         return entries
     }
@@ -131,7 +131,7 @@ const clearEntry = (entries) => {
     return copy
 }
 
-const calculate = (entries) => {
+export const calculate = (entries) => {
     if (entries.length % 3 === 1) {
         return;
     }
@@ -152,4 +152,31 @@ const calculate = (entries) => {
     return copy[0];
 }
 
-export default { applyEntry, clearEntry, calculate }
+export const getKey = (event) => {
+    const [multiply, divide, add, subtract ] = ['x', '/', '+', '-']
+
+    switch(event.which) {
+        case 187:
+            return event.shiftKey ? add : event.key 
+        case 107:
+            return add
+        case 189:
+        case 109:
+            return subtract
+        case 111:
+        case 220:
+            return divide
+        case 56:
+        case 42:
+            return event.shiftKey ? multiply : event.key 
+        case 88:
+        case 106:
+            return multiply
+        case 190:
+            return '.'
+        default:
+            return event.key
+    }
+}
+
+export default { applyEntry, clearEntry, calculate, getKey }
