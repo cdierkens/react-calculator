@@ -1,15 +1,15 @@
 import calc from './calc';
 
-const prefix = ['-']
+const prefix = ['-', '√']
 const postfix = ['%']
 
-const operator = ['x', '/', '+', '-']
+const operator = ['*', '/', '+', '-']
 const number = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
 const seperator = ['.']
 const singular = ['-', '%', '.']
 
 const fns = {
-    'x': calc.multiply,
+    '*': calc.multiply,
     '/': calc.divide,
     '+': calc.add,
     '-': calc.subtract
@@ -153,7 +153,7 @@ export const calculate = (entries) => {
 }
 
 export const getKey = (event) => {
-    const [multiply, divide, add, subtract ] = ['x', '/', '+', '-']
+    const [multiply, divide, add, subtract ] = ['*', '/', '+', '-']
 
     switch(event.which) {
         case 187:

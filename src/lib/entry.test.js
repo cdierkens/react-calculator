@@ -15,21 +15,21 @@ describe('applyEntry', () => {
 
     it('does not append when called with an operator entry and an operator that is not a prefix', () => {
         expect(entry.applyEntry(['-'], '+')).toEqual(['-'])
-        expect(entry.applyEntry(['-'], 'x')).toEqual(['-'])
+        expect(entry.applyEntry(['-'], '*')).toEqual(['-'])
         expect(entry.applyEntry(['-'], '/')).toEqual(['-'])
     })
 
     it('appends when called with an operator entry and a prefix', () => {
         expect(entry.applyEntry(['-'], '-')).toEqual(['-', '-'])
         expect(entry.applyEntry(['+'], '-')).toEqual(['+', '-'])
-        expect(entry.applyEntry(['x'], '-')).toEqual(['x', '-'])
+        expect(entry.applyEntry(['*'], '-')).toEqual(['*', '-'])
         expect(entry.applyEntry(['/'], '-')).toEqual(['/', '-'])
     })
 
     it('does not append when called with an operator entry followed by a prefix entry and a prefix', () => {
         expect(entry.applyEntry(['-', '-'], '-')).toEqual(['-', '-'])
         expect(entry.applyEntry(['+', '-'], '-')).toEqual(['+', '-'])
-        expect(entry.applyEntry(['x', '-'], '-')).toEqual(['x', '-'])
+        expect(entry.applyEntry(['*', '-'], '-')).toEqual(['*', '-'])
         expect(entry.applyEntry(['/', '-'], '-')).toEqual(['/', '-'])
     })
 
@@ -59,7 +59,7 @@ describe('applyEntry', () => {
 
     it('adds a new entry when called with an operator that is not a prefix in the last entry and a number', () => {
         expect(entry.applyEntry(['+'], '1')).toEqual(['+', '1'])
-        expect(entry.applyEntry(['x'], '1')).toEqual(['x', '1'])
+        expect(entry.applyEntry(['*'], '1')).toEqual(['*', '1'])
         expect(entry.applyEntry(['/'], '1')).toEqual(['/', '1'])
     })
 
@@ -72,13 +72,13 @@ describe('applyEntry', () => {
     })
 
     it('adds a new entry when called with previous entries an operator that is also a prefix in the last entry and a number', () => {
-        expect(entry.applyEntry(['-6', '-'], '1')).toEqual(["-6", "-", '1'])
+        expect(entry.applyEntry(['-6', '-'], '1')).toEqual(['-6', '-', '1'])
     })
 
     it('adds a new entry when called with an number in the last entry and an operator', () => {
         expect(entry.applyEntry(['1'], '+')).toEqual(['1', '+'])
         expect(entry.applyEntry(['1'], '-')).toEqual(['1', '-'])
-        expect(entry.applyEntry(['1'], 'x')).toEqual(['1', 'x'])
+        expect(entry.applyEntry(['1'], '*')).toEqual(['1', '*'])
         expect(entry.applyEntry(['1'], '/')).toEqual(['1', '/'])
     })
 
@@ -117,11 +117,11 @@ describe('calculate', () => {
     })
 
     it('returns the result of a complex calculation', () => {
-        expect(entry.calculate(["9", "+", "3", "x", "3", "/", "3", "+", "3.3"])).toBe(15.3)
+        expect(entry.calculate(['9', '+', '3', '*', '3', '/', '3', '+', '3.3'])).toBe(15.3)
     })
 
     it('returns the result of calculation that contains negative numbers', () => {
-        expect(entry.calculate(["9", "x", "-3"])).toBe(-27)
-        expect(entry.calculate(["9", "+", "-3", "x", "3", "/", "3", "+", "3.3"])).toBe(9.3)
+        expect(entry.calculate(['9', '*', '-3'])).toBe(-27)
+        expect(entry.calculate(['9', '+', '-3', '*', '3', '/', '3', '+', '3.3'])).toBe(9.3)
     })
 });

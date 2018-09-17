@@ -112,7 +112,7 @@ class App extends Component {
             <Button click={this.entryClickHandler}>6</Button>
           </Column>
           <Column>
-            <Button click={this.entryClickHandler}>x</Button>
+            <Button click={this.entryClickHandler}>*</Button>
           </Column>
         </Row>
         <Row>
