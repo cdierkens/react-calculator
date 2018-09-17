@@ -76,7 +76,9 @@ class App extends Component {
       <div className={styles.App} onKeyUp={this.keyUpHandler} tabIndex='0' ref={this.appRef}>
         <Panel calculation={this.state.entries.join(' ')} result={this.state.result}></Panel>
         <Row>
-          <Column></Column>
+          <Column>
+            <Button click={this.entryClickHandler}>√</Button>
+          </Column>
           <Column>
             <Button click={this.clearEntryHandler}>CE</Button>
           </Column>

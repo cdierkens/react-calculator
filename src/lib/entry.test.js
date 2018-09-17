@@ -11,6 +11,7 @@ describe('applyEntry', () => {
 
     it('appends when called with empty entries and a prefix', () => {
         expect(entry.applyEntry([], '-')).toEqual(['-'])
+        expect(entry.applyEntry([], '√')).toEqual(['√'])
     })
 
     it('does not append when called with an operator entry and an operator that is not a prefix', () => {
@@ -24,6 +25,11 @@ describe('applyEntry', () => {
         expect(entry.applyEntry(['+'], '-')).toEqual(['+', '-'])
         expect(entry.applyEntry(['*'], '-')).toEqual(['*', '-'])
         expect(entry.applyEntry(['/'], '-')).toEqual(['/', '-'])
+
+        expect(entry.applyEntry(['-'], '√')).toEqual(['-', '√'])
+        expect(entry.applyEntry(['+'], '√')).toEqual(['+', '√'])
+        expect(entry.applyEntry(['*'], '√')).toEqual(['*', '√'])
+        expect(entry.applyEntry(['/'], '√')).toEqual(['/', '√'])
     })
 
     it('does not append when called with an operator entry followed by a prefix entry and a prefix', () => {
@@ -65,6 +71,7 @@ describe('applyEntry', () => {
 
     it('appends to the same entry when called with an operator that is also a prefix in the last entry and a number', () => {
         expect(entry.applyEntry(['-'], '1')).toEqual(['-1'])
+        expect(entry.applyEntry(['√'], '1')).toEqual(['√1'])
     })
 
     it('appends to the same entry when called with an operator followed by a prefix in the last entry and a number', () => {
@@ -128,5 +135,10 @@ describe('calculate', () => {
     it('returns the result of calculation that contains percentages numbers', () => {
         expect(entry.calculate(['100%'])).toBe(1)
         expect(entry.calculate(['10%', '*', '900'])).toBe(90)
+    })
+
+    it('returns the result of calculation that starts with a square root', () => {
+        expect(entry.calculate(['√100'])).toBe(10)
+        expect(entry.calculate(['√100', '*', '√100'])).toBe(100)
     })
 });
